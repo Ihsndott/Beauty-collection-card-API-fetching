@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Productcard from "./Productcard";
-
-
+import Navbar from "./Navbar";
+import useSearch from "./useSearch";
 
 
 function Product(){
@@ -10,7 +10,8 @@ const [product,setProduct] = useState([]);
 const [error,setError] = useState(null);
 const [visibleproducts, setVisibleproducts] = useState(6);
 
- useEffect(()=>{
+
+useEffect(()=>{
    
     fetch('https://dummyjson.com/products')
     .then((response)=> {
@@ -25,7 +26,9 @@ const [visibleproducts, setVisibleproducts] = useState(6);
 }, []);
 
 
-const productList = product.slice(0,visibleproducts).map((item) =>
+const{search,setSearch,filteredItems} = useSearch(product);
+
+const productList = filteredItems.slice(0,visibleproducts).map((item) =>
         <Productcard key={item.id} id={item.id} images={item.images} brand = {item.brand} 
          rating={item.rating} title={item.title} description={item.description} 
          stock={item.stock} price={item.price} availabilityStatus={item.availabilityStatus}
@@ -35,6 +38,8 @@ const productList = product.slice(0,visibleproducts).map((item) =>
    
     return(
         <>
+      
+        <Navbar search={search} setSearch={setSearch}/>
         {error && <p>{error}</p>}
         <div className="bg-[#d3b3d5] p-8">
         <h1 className="text-4xl font-bold  text-center text-[#4e3a4e] ">Premium Beauty Collection</h1>
@@ -44,10 +49,11 @@ const productList = product.slice(0,visibleproducts).map((item) =>
        <div>
         <button onClick={() => {(setVisibleproducts(product.length))}} className="bg-[#4e3a4e] text-center mx-[670px] text-white px-4 py-2 rounded-2xl font-bold active:scale-95">Explore More</button>
        </div>
-
+       
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mt-6">
         {productList}
          </div>
+         
 
         
                 
