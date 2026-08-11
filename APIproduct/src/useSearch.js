@@ -1,15 +1,14 @@
-import { useState } from "react";
 
-function useSearch(products){
 
-    const[search,setSearch] = useState("");
+function useSearch(products,search){
+
 
     const filteredItems = products.filter((dofilter)=>{
       return  dofilter.category.toLowerCase().trim().includes(search.toLowerCase().trim())
     }
     )
 
-    return{search,setSearch,filteredItems};
+    return{filteredItems};
 
 
 

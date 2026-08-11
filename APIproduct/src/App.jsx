@@ -1,19 +1,19 @@
-import Product from "./Product";
+// import Product from "./Product";
 
 
 
-function App() {
+// function App() {
 
-  return(
-    <>
+//   return(
+//     <>
     
-      <div className="bg-[#d3b3d5] min-h-screen">
-    <Product/>
-    </div>
+//       <div className="bg-[#d3b3d5] min-h-screen">
+//     <Product/>
+//     </div>
     
     
-    </>
-  )
-}
+//     </>
+//   )
+// }
 
-export default App;
+// export default App;

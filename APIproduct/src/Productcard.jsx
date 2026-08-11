@@ -1,6 +1,9 @@
 
+import { useContext } from "react";
 import Product from "./Product";
 import useCounter from "./useCounter";
+import { searchContext } from "./Layout";
+import Addcards from "../Addcards";
 
 
 
@@ -10,6 +13,22 @@ function Productcard(props){
 
     
 const{count,increment,decrement} = useCounter();
+const {cartcount,setCartcount} = useContext(searchContext)
+
+//handling insertion of selected cards
+function insertAddtoCart(){
+
+    setCartcount(cartcount+1);
+
+    Addcards({
+        id:props.id,
+        title:props.title,
+        price: props.price,
+        images:props.images,
+        category:props.category,
+        quantity:1
+    });
+}
 
     
     return(
@@ -32,7 +51,7 @@ const{count,increment,decrement} = useCounter();
         <p className={props.availabilityStatus==="In Stock"?"text-green-500 font-bold ml-2":"text-red-500 font-bold ml-2"} > {props.availabilityStatus}</p>
 
         <div className="flex flex-row justify-between mt-4 ml-2 mr-6">
-         <button disabled={props.availabilityStatus !== "In Stock"} className="disabled:bg-red-400 bg-[#ba95bc] px-4 py-2 rounded-2xl font-bold active:scale-95">Add to Cart</button>
+         <button onClick={insertAddtoCart} disabled={props.availabilityStatus !== "In Stock"} className="disabled:bg-red-400 bg-[#ba95bc] px-4 py-2 rounded-2xl font-bold active:scale-95">Add to Cart</button>
          <button  className="bg-[#4e3a4e]  text-white px-4 py-2 rounded-2xl font-bold active:scale-95">Buy Now</button>  
             
         </div>

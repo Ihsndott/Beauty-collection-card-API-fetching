@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
-import Productcard from "./Productcard";
-import Navbar from "./Navbar";
+import Productcard from "./Productcard"
 import useSearch from "./useSearch";
+import Navbar from "./Navbar";
+import { useContext } from "react"
+import { searchContext } from "./Layout"
+
 
 
 function Product(){
@@ -25,8 +28,8 @@ useEffect(()=>{
 
 }, []);
 
-
-const{search,setSearch,filteredItems} = useSearch(product);
+const {search,setSearch} = useContext(searchContext)
+const{filteredItems} = useSearch(product,search);
 
 const productList = filteredItems.slice(0,visibleproducts).map((item) =>
         <Productcard key={item.id} id={item.id} images={item.images} brand = {item.brand} 
@@ -39,7 +42,7 @@ const productList = filteredItems.slice(0,visibleproducts).map((item) =>
     return(
         <>
       
-        <Navbar search={search} setSearch={setSearch}/>
+      
         {error && <p>{error}</p>}
         <div className="bg-[#d3b3d5] p-8">
         <h1 className="text-4xl font-bold  text-center text-[#4e3a4e] ">Premium Beauty Collection</h1>
@@ -47,7 +50,7 @@ const productList = filteredItems.slice(0,visibleproducts).map((item) =>
        </div>
 
        <div>
-        <button onClick={() => {(setVisibleproducts(product.length))}} className="bg-[#4e3a4e] text-center mx-[670px] text-white px-4 py-2 rounded-2xl font-bold active:scale-95">Explore More</button>
+        <button onClick={() => {(setVisibleproducts(product.length))}} className="bg-[#4e3a4e] text-center mx-[140px] md:mx-[670px] text-white px-4 py-2 rounded-2xl font-bold active:scale-95">Explore More</button>
        </div>
        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mt-6">

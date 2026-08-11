@@ -2,16 +2,17 @@ import { useState } from "react";
 
 function useCounter () {
 
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
 
     function increment(){
         setCount(count+1);
     }
 
      function decrement(){
-        do{
-        setCount(count-1);}
-        while (count===0)
+        if (count>0){
+        setCount(count-1);
+        }
+        
     }
 
 
